@@ -1,3 +1,7 @@
+## Coffee lister
+
+This is a simple project for a web app where the user can save and list their favorite coffee types.
+
 ## Available Scripts
 
 In the project directory, you can run:
