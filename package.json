@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "create-react-app": "^5.0.1"
+  },
+  "scripts": {
+    "dev:client": "cd client && npm start",
+    "dev:server": "cd server && npm run dev"
   }
 }

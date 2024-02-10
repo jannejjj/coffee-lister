@@ -2,17 +2,10 @@
 
 This is a simple project for a web app where the user can save and list their favorite coffee types.
 
-## Available Scripts
+## Running the code
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Before running, you should run the `npm install` command in both the `/server` and `/client` directories
+In the root directory of the project, you can run`npm run dev:server` to start the back-end, and `npm run dev:client` to start the front-end. When the front-end starts, the will be accessible at localhost:3000 in your browser.
 
 ### `npm test`
 
