@@ -1,26 +1,37 @@
-import React from "react";
+import { useEffect} from "react";
 import CoffeeItem from "./CoffeeItem";
 
-export type CoffeeData = {
+interface CoffeeListProps {
+    coffees: Array<Coffee>;
+    setCoffees: (coffees: Array<Coffee>) => void;
+}
+
+type Coffee = {
         name: string;
         weight: string;
         price: string;
         roastLevel: number;
-    };
+};
 
-const savedCoffees : Array<CoffeeData> = [
-    {name: "Juhla Mokka", weight: "500", price: "4.99", roastLevel: 2},
-    {name: "Presidentti", weight: "500", price: "6.99", roastLevel: 3},
-    {name: "Löfbergs", weight: "500", price: "3.99", roastLevel: 1},
-    {name: "Saludo", weight: "500", price: "5.99", roastLevel: 2}
-  ];
+const CoffeeList = ({coffees, setCoffees}: CoffeeListProps) => {
 
-  // TODO: Fetch the coffee data from the server 
+    useEffect(() => {
+        fetch("/coffees")
+        .then((response) => response.json())
+        .then((json) => {
+            if (json.error) {
+                console.log(json.error);
+            } else if (json.length === 0){
+                console.log("No coffees in db yet.");
+            } else {
+                setCoffees(json);
+            }
+        })
+    }, [setCoffees]);
 
-const CoffeeList = () => {
     return (
         <div>
-            {savedCoffees.map((coffee) => {
+            {coffees.map((coffee) => {
                 return (
                     <CoffeeItem
                         key={coffee.name}

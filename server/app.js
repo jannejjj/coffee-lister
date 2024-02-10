@@ -14,6 +14,6 @@ const app = express();
 app.use;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use("/coffee", coffeeRouter);
+app.use("/coffees", coffeeRouter);
 
 module.exports = app;

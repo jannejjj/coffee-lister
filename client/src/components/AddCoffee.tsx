@@ -1,6 +1,10 @@
 import React from "react";
 import { useState } from "react";
 
+interface AddCoffeeProps {
+    setCoffees : (coffees: Array<Coffee>) => void;
+};
+
 type Coffee = {
     name: string;
     weight: string;
@@ -8,32 +12,47 @@ type Coffee = {
     roastLevel: number;
 };
 
-const AddCoffee = () => {
+const AddCoffee = ( props: AddCoffeeProps) => {
 
-    const [coffeeData, setCoffeeData] = useState({} as Coffee);
+    function saveCoffee(coffeeData: object) {
+        fetch("coffees/add", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(coffeeData),
+        })
+        .then((response) => response.json())
+        .then((json) => {
+            if (json.error) {
+                console.log(json.error);
+            } else {
+                console.log(json);
+                props.setCoffees(json);
+            }
+        
+        })
+      };
+
+    const [coffeeData, setCoffeeData] = useState({});
 
     function handleFormChange(event: React.ChangeEvent<HTMLFormElement>) {
         event.preventDefault();
         setCoffeeData({...coffeeData, [event.target.id]: event.target.value})
     }
-
-    function saveCoffee(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        console.log(coffeeData.name, coffeeData.weight, coffeeData.price, coffeeData.roastLevel);
-
-        // TODO: Send the coffee data to the server
-    };
-
     
     return (
         <div>
-            <h1>Add a coffee to the list:</h1>
-            <form onChange={handleFormChange} onSubmit={saveCoffee}>
+            <h2>Add a coffee to the list:</h2>
+            <form
+                onChange={handleFormChange}
+                onSubmit={() => saveCoffee(coffeeData)}
+            >
                 <input id="name" placeholder="Name" />
                 <input id="weight" placeholder="Weight" />
                 <input id="price" placeholder="Price" />
                 <input id="roastLevel" placeholder="Roast Level" />
-                <button>Add!</button>
+                <button type="submit">Add!</button>
             </form>
 
         </div>

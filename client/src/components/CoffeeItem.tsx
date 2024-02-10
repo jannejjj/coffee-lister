@@ -1,4 +1,4 @@
-export type CoffeeItemProps = {
+interface CoffeeItemProps {
     name: string;
     weight: string;
     price: string;
@@ -8,7 +8,7 @@ export type CoffeeItemProps = {
 const CoffeeItem = (props: CoffeeItemProps) => {
     return (
         <div>
-            <h1>{props.name}</h1>
+            <h3>{props.name}</h3>
             <p>Weight: {props.weight}g</p>
             <p>Price: {props.price}€</p>
             <p>Roast: {props.roastLevel}</p>

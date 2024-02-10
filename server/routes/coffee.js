@@ -2,9 +2,9 @@ var express = require("express");
 var router = express.Router();
 const Coffee = require("../models/coffee");
 
-router.get("/", function (req, res, next) {
+router.get("/", async (req, res) => {
   try {
-    const coffees = Coffee.find({});
+    const coffees = await Coffee.find({});
     res.json(coffees);
   } catch (error) {
     console.error(error);
@@ -12,20 +12,22 @@ router.get("/", function (req, res, next) {
   }
 });
 
-router.post("/add", function (req, res, next) {
-  new Coffee({
+router.post("/add", async (req, res) => {
+  const newCoffee = new Coffee({
     name: req.body.name,
     weight: req.body.weight,
     price: req.body.price,
     roastLevel: req.body.roastLevel,
-  }).save(function (err) {
-    if (err) {
-      console.error(err);
-      res.status(500).send({ error: "Could not save coffee." });
-    } else {
-      res.json(Coffee.find({})); // Return all coffees, including the new one
-    }
   });
+
+  try {
+    newCoffee.save();
+    const coffees = await Coffee.find({});
+    res.send(coffees); // Return all coffees, including the new one
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Could not save coffee." });
+  }
 });
 
 module.exports = router;
