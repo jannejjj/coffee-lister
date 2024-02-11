@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import { useEffect} from "react";
 import CoffeeItem from "./CoffeeItem";
+import Search from "./Search";
+import Error from "./Error";
 import Coffee from "../types/Coffee";
 import "../styles/CoffeeList.css";
 
@@ -12,6 +14,7 @@ interface CoffeeListProps {
 const CoffeeList = ({coffees, setCoffees}: CoffeeListProps) => {
 
     const [msg, setMsg] = useState("");
+    const [search, setSearch] = useState("");
 
     function deleteCoffee(id: string) {
         fetch("coffees/delete/" + id, {
@@ -23,7 +26,6 @@ const CoffeeList = ({coffees, setCoffees}: CoffeeListProps) => {
         .then((response) => response.json())
         .then((json) => {
             if (json.error) {
-                console.log(json.error);
                 setMsg(json.error);
             } else {
                 setCoffees(json);
@@ -36,7 +38,6 @@ const CoffeeList = ({coffees, setCoffees}: CoffeeListProps) => {
         .then((response) => response.json())
         .then((json) => {
             if (json.error) {
-                console.log(json.error);
                 setMsg(json.error);
             } else {
                 setCoffees(json);
@@ -44,23 +45,37 @@ const CoffeeList = ({coffees, setCoffees}: CoffeeListProps) => {
         })
     }, [setCoffees]);
 
+
     return (
-        <div className="coffee-list">
-            {msg !== "" ? <h3>{msg}</h3> : null}
-            <h3>Saved coffees:</h3>
-            {coffees.slice(0).reverse().map((coffee) => {
-                console.log(coffee.id);
-                return (
-                    <CoffeeItem
-                        key={coffee.id}
-                        name={coffee.name}
-                        weight={coffee.weight}
-                        price={coffee.price}
-                        roastLevel={coffee.roastLevel}
-                        deleteCoffee={() => deleteCoffee(coffee.id)}
-                    />
-                );
-            })}
+        <div>
+            {msg !== "" // If there's an error message, display it. Otherwise, display the coffee list
+            ?
+            <Error msg={msg}/>
+            :
+            <div>
+                <Search setSearch={setSearch}/>
+                <div className="coffee-list">
+
+
+                {coffees.map((coffee) => {
+                    // If search is empty or the coffee name includes search, display the coffee
+                    if (search.trim() === "" || coffee.name.toLowerCase().includes(search.toLowerCase())) {
+                        return (
+                            <CoffeeItem
+                                key={coffee.id}
+                                name={coffee.name}
+                                weight={coffee.weight}
+                                price={coffee.price}
+                                roastLevel={coffee.roastLevel}
+                                deleteCoffee={() => deleteCoffee(coffee.id)}
+                            />
+                        );
+                    } else {
+                        return null;
+                    }
+                })}
+                </div>
+            </div>}
         </div>
     );
 }
