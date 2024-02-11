@@ -7,9 +7,7 @@ router.get("/", async (req, res) => {
   try {
     const coffees = await Coffee.find({});
     if (coffees.length === 0) {
-      res
-        .status(404)
-        .send({ error: "No coffees in database yet. Save your first coffee!" });
+      res.send({ error: "No coffees in database. Save your first coffee!" });
     } else {
       res.json(coffees);
     }
@@ -31,7 +29,7 @@ router.post("/add", async (req, res) => {
   try {
     newCoffee.save();
     const coffees = await Coffee.find({});
-    res.send(coffees); // Return all coffees, including the new one
+    res.json(coffees); // Return all coffees, including the new one
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "Could not save coffee." });
@@ -43,7 +41,11 @@ router.delete("/delete/:id", async (req, res) => {
   try {
     await Coffee.deleteOne({ id: id });
     const coffees = await Coffee.find({});
-    res.send(coffees); // Return remaining coffees
+    if (coffees.length === 0) {
+      res.send({ error: "No coffees in database. Save your first coffee!" });
+    } else {
+      res.json(coffees);
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "Could not delete coffee." });

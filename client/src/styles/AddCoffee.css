@@ -1,4 +1,8 @@
 .add-coffee {
+    width: 80vw;
+    margin: auto;
+    border-bottom: 3px solid #cccccc6b;
+
     .text-inputs {
         input {
             width: 20vw;
@@ -8,7 +12,8 @@
 
     .radio-inputs {
         input {
-            margin: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
         }
     }
 

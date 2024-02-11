@@ -2,7 +2,7 @@ import "../styles/Header.css";
 
 const Header = () => {
     return (
-            <h1>Coffee lister ☕️</h1>
+            <h1>☕️ Coffee lister ☕️</h1>
     );
 };
 

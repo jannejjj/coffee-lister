@@ -11,7 +11,7 @@ interface CoffeeItemProps {
 const CoffeeItem = (props: CoffeeItemProps) => {
     return (
         <div className="coffee-item">
-            <h3>{props.name}</h3>
+            <h4>{props.name}</h4>
             <p>Weight: {props.weight}g</p>
             <p>Price: {props.price}€</p>
             <p>Roast: {props.roastLevel}</p>
