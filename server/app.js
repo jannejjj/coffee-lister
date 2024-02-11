@@ -1,7 +1,9 @@
 var express = require("express");
 var mongoose = require("mongoose");
 
-const mongoDB = "mongodb://localhost:27017/coffeeDB";
+// Cloud DB connection string should be normally be stored in an environment variable for security, but for this project I'll just hardcode it here.
+const mongoDB =
+  "mongodb+srv://coffee-user:rP79WzP1EUuVmBYE@coffee-lister.66oxjjw.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(mongoDB);
 mongoose.Promise = Promise;
 const database = mongoose.connection;
