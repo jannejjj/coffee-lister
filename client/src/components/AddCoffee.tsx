@@ -1,15 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import Coffee from "../types/Coffee";
 
 interface AddCoffeeProps {
     setCoffees : (coffees: Array<Coffee>) => void;
-};
-
-type Coffee = {
-    name: string;
-    weight: string;
-    price: string;
-    roastLevel: number;
 };
 
 const AddCoffee = ( props: AddCoffeeProps) => {
@@ -37,13 +31,13 @@ const AddCoffee = ( props: AddCoffeeProps) => {
     const [coffeeData, setCoffeeData] = useState({});
 
     function handleFormChange(event: React.ChangeEvent<HTMLFormElement>) {
-        event.preventDefault();
         setCoffeeData({...coffeeData, [event.target.id]: event.target.value})
+        console.log(coffeeData);
     }
     
     return (
         <div>
-            <h2>Add a coffee to the list:</h2>
+            <h3>Add a coffee to the list:</h3>
             <form
                 onChange={handleFormChange}
                 onSubmit={() => saveCoffee(coffeeData)}
@@ -51,7 +45,14 @@ const AddCoffee = ( props: AddCoffeeProps) => {
                 <input id="name" placeholder="Name" />
                 <input id="weight" placeholder="Weight" />
                 <input id="price" placeholder="Price" />
-                <input id="roastLevel" placeholder="Roast Level" />
+                <input list="roast-options" type="drop" id="roastLevel" placeholder="Select Roast Level"/>
+                <datalist id="roast-options">
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                        <option value="4"></option>
+                        <option value="5"></option>
+                </datalist>
                 <button type="submit">Add!</button>
             </form>
 
