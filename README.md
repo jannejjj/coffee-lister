@@ -3,7 +3,8 @@
 This is a simple project for a web app where the user can save and list their favorite coffee types.
 
 ### Installation:
-*(You should have Node.js installed.)*
+*Prerequisites*
+- Node.js (The assignment description allowed the use of React so I assume this is fine)
 
 Go to the directory where you want the project.
 
@@ -20,8 +21,5 @@ SSH:
 In the root directory of the project:
 
 2. `npm run dev:server` to start the back-end.
-3. (in a separate terminal window) `npm run dev:client` to start the front-end. The application will run at localhost:3000
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
+3. (in a separate terminal window) `npm run dev:client` to start the front-end.
+4. The application will then be running at localhost:3000
