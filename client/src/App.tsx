@@ -1,16 +1,9 @@
 import React, {useState} from 'react';
 import Header from './components/Header';
-import './App.css';
+import './styles/App.css';
 import CoffeeList from './components/CoffeeList';
 import AddCoffee from './components/AddCoffee';
-
-type Coffee = { 
-  name: string;
-  weight: string;
-  price: string;
-  roastLevel: number;
-};
-
+import Coffee from './types/Coffee';
 
 function App() {
 
