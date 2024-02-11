@@ -52,4 +52,16 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
+router.get("/search/:searchphrase", async (req, res, next) => {
+  try {
+    const coffees = await Coffee.find({
+      name: { $regex: req.params.searchphrase, $options: "i" },
+    });
+    res.json(coffees);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Error fetching coffees from database" });
+  }
+});
+
 module.exports = router;

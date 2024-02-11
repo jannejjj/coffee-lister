@@ -14,7 +14,6 @@ interface CoffeeListProps {
 const CoffeeList = ({coffees, setCoffees}: CoffeeListProps) => {
 
     const [msg, setMsg] = useState("");
-    const [search, setSearch] = useState("");
 
     function deleteCoffee(id: string) {
         fetch("coffees/delete/" + id, {
@@ -48,31 +47,29 @@ const CoffeeList = ({coffees, setCoffees}: CoffeeListProps) => {
 
     return (
         <div>
-            {msg !== "" // If there's an error message, display it. Otherwise, display the coffee list
+            {msg !== ""
             ?
             <Error msg={msg}/>
             :
             <div>
-                <Search setSearch={setSearch}/>
+                <Search
+                    setMsg={setMsg}
+                    setCoffees={setCoffees}
+                />
                 <div className="coffee-list">
 
-
                 {coffees.map((coffee) => {
-                    // If search is empty or the coffee name includes search, display the coffee
-                    if (search.trim() === "" || coffee.name.toLowerCase().includes(search.toLowerCase())) {
-                        return (
-                            <CoffeeItem
-                                key={coffee.id}
-                                name={coffee.name}
-                                weight={coffee.weight}
-                                price={coffee.price}
-                                roastLevel={coffee.roastLevel}
-                                deleteCoffee={() => deleteCoffee(coffee.id)}
-                            />
-                        );
-                    } else {
-                        return null;
-                    }
+                    return (
+                        <CoffeeItem
+                            key={coffee.id}
+                            name={coffee.name}
+                            weight={coffee.weight}
+                            price={coffee.price}
+                            roastLevel={coffee.roastLevel}
+                            deleteCoffee={() => deleteCoffee(coffee.id)}
+                        />
+                    );
+                    
                 })}
                 </div>
             </div>}

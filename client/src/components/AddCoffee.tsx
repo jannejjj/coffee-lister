@@ -24,9 +24,7 @@ const AddCoffee = ( props: AddCoffeeProps) => {
         .then((json) => {
             if (json.error) {
                 setMsg(json.error);
-                console.log(json.error);
             } else {
-                console.log(json);
                 props.setCoffees(json);
             }
         
@@ -37,7 +35,6 @@ const AddCoffee = ( props: AddCoffeeProps) => {
 
     function handleFormChange(event: React.ChangeEvent<HTMLFormElement>) {
         setCoffeeData({...coffeeData, [event.target.id]: event.target.value})
-        console.log(coffeeData);
     }
     
     return (
