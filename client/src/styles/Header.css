@@ -1,4 +1,9 @@
-header {
+h1 {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color:brown ;
+    background-color:rgba(142, 7, 7, 0.315) ;
+    height: 70px;
+    vertical-align: middle;
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -1,0 +1,28 @@
+.add-coffee {
+    .text-inputs {
+        input {
+            width: 20vw;
+            margin: 5px;
+        }
+    }
+
+    .radio-inputs {
+        input {
+            margin: 10px;
+        }
+    }
+
+    fieldset {
+        margin-top: 10px;
+        border: none;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    button {
+        width: 10vw;
+        padding: 10px;
+    }
+
+}

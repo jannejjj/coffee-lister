@@ -47,6 +47,7 @@ const CoffeeList = ({coffees, setCoffees}: CoffeeListProps) => {
     return (
         <div className="coffee-list">
             {msg !== "" ? <h3>{msg}</h3> : null}
+            <h3>Saved coffees:</h3>
             {coffees.slice(0).reverse().map((coffee) => {
                 console.log(coffee.id);
                 return (
