@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import Error from "./Error";
 import Coffee from "../types/Coffee";
 import "../styles/AddCoffee.css";
 
@@ -8,6 +9,8 @@ interface AddCoffeeProps {
 };
 
 const AddCoffee = ( props: AddCoffeeProps) => {
+
+    const [msg, setMsg] = useState("");
 
     function saveCoffee(coffeeData: object) {
         fetch("coffees/add", {
@@ -20,6 +23,7 @@ const AddCoffee = ( props: AddCoffeeProps) => {
         .then((response) => response.json())
         .then((json) => {
             if (json.error) {
+                setMsg(json.error);
                 console.log(json.error);
             } else {
                 console.log(json);
@@ -38,20 +42,20 @@ const AddCoffee = ( props: AddCoffeeProps) => {
     
     return (
         <div className="add-coffee">
-            <h3>Add a coffee to the list:</h3>
+            <h4>Add a coffee to the list:</h4>
             <form
                 onChange={handleFormChange}
                 onSubmit={() => saveCoffee(coffeeData)}
             >
                 <fieldset className="text-inputs">
-                    <input id="name" placeholder="Name" />
-                    <input id="weight" placeholder="Weight in grams" />
-                    <input id="price" placeholder="Price in €" />
+                    <input id="name" placeholder="Name" required/>
+                    <input id="weight" placeholder="Weight in grams" required/>
+                    <input id="price" placeholder="Price in €" required/>
                 </fieldset>
                 <fieldset className="radio-inputs">
                     <legend>Roast Level:</legend>
                     <label> 1
-                    <input type="radio" id="roastLevel" value="1" name="roastLevel" />
+                    <input type="radio" id="roastLevel" value="1" name="roastLevel" required/>
                     </label>
                     <label> 2
                     <input type="radio" id="roastLevel" value="2" name="roastLevel" />
@@ -67,8 +71,8 @@ const AddCoffee = ( props: AddCoffeeProps) => {
                     </label>
                 </fieldset>
                 <button type="submit">Add!</button>
+                {msg !== "" ? <Error msg={msg}/> : null}
             </form>
-
         </div>
     );
 };
